@@ -9,8 +9,6 @@ namespace HannahDavantes_FinalProject.Data.Enums {
         Toner,
         Moisturizer,
         Serum,
-        Mask,
-        Suncare,
-        Other
+        Suncare
     }
 }

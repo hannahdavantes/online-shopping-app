@@ -12,10 +12,11 @@ namespace HannahDavantes_FinalProject.Models {
         public string Name { get; set; }
         public string Brand { get; set; }
         public ProductCategory Category { get; set; }
-        public string SizeNumber { get; set; }
+        public int SizeNumber { get; set; }
         public ProductSizeUnit SizeUnit { get; set; }
         public string Photo { get; set; }
         public string Description { get; set; }
+        public double Price { get; set; }
 
     }
 }
