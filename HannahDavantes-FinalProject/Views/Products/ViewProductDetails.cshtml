@@ -1,0 +1,34 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Product Detail";
+}
+
+<div class="card  col-8 offset-2 shadow-lg">
+    <div class="card-body row p-2">
+        <div class="col col-6">
+            <img style="height:250px; width:120px; object-fit:cover;" src="~/img/@Model.Photo" alt="@Model.Name" />
+        </div>
+        <div class="col col-6 d-flex flex-column">
+            <h5>@Model.Name - @Model.SizeNumber@Model.SizeUnit</h5>
+            <small class="text-muted">@Model.Brand</small>
+            <div class="mb-3">
+                <span class="badge badge-secondary mb-2">@Model.Price.ToString("c")</span>
+            </div>
+            <div>
+                <p>@Model.Description</p>
+            </div>
+            <div class="btn-group mt-auto" role="group" aria-label="Basic example">
+                <a class="btn btn-secondary text-white float-left" data-toggle="tooltip" data-placement="top" title="Add to Cart" asp-action="Index">
+                    <i class="bi bi-bag-plus"></i> Back to List
+                </a>
+                <a class="btn btn-success text-white float-right" data-toggle="tooltip" data-placement="top" title="Edit">
+                    <i class="bi bi-pencil-fill"></i> Edit
+                </a>
+                <a class="btn btn-success text-white float-right" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                    <i class="bi bi-bag-plus"></i> Add To Cart
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

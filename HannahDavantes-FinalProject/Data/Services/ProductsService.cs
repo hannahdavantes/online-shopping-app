@@ -14,12 +14,15 @@ namespace HannahDavantes_FinalProject.Data.Services {
             _dbContextUtility = dbContextUtility;
         }
 
-        public Task AddProductAsync(Product product) {
-            throw new NotImplementedException();
+        public async Task AddProductAsync(Product product) {
+            await _dbContextUtility.Products.AddAsync(product);
+            await _dbContextUtility.SaveChangesAsync();
         }
 
-        public Task DeleteProductAsync(int id) {
-            throw new NotImplementedException();
+        public async Task DeleteProductAsync(int id) {
+            var result = await _dbContextUtility.Products.FirstOrDefaultAsync(n => n.Id == id);
+            _dbContextUtility.Products.Remove(result);
+            await _dbContextUtility.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync() {
@@ -27,12 +30,15 @@ namespace HannahDavantes_FinalProject.Data.Services {
             return productsList;
         }
 
-        public Task<Product> GetProductById(int id) {
-            throw new NotImplementedException();
+        public async Task<Product> GetProductById(int id) {
+            var product = await _dbContextUtility.Products.FirstOrDefaultAsync(product => product.Id == id);
+            return product;
         }
 
-        public Task<Product> UpdateProductAsync(int id, Product product) {
-            throw new NotImplementedException();
+        public async Task<Product> UpdateProductAsync(int id, Product product) {
+            _dbContextUtility.Update(product);
+            await _dbContextUtility.SaveChangesAsync();
+            return product;
         }
     }
 }

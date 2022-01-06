@@ -14,7 +14,7 @@
                     <img style="height:250px; width:120px; object-fit:cover;" src="~/img/@product.Photo" alt="@product.Name" />
                 </div>
                 <div class="col col-6 d-flex flex-column">
-                    <h5>@product.Name</h5>
+                    <h5>@product.Name - @product.SizeNumber@product.SizeUnit</h5>
                     <small class="text-muted">@product.Brand</small>
                     <div class="mb-3">
                         <span class="badge badge-secondary mb-2">@product.Price.ToString("c")</span>
@@ -23,7 +23,7 @@
                         <a class="btn btn-success text-white float-right" data-toggle="tooltip" data-placement="top" title="Edit">
                             <i class="bi bi-pencil-fill"></i>
                         </a>
-                        <a class="btn btn-success text-white float-right" data-toggle="tooltip" data-placement="top" title="See Details">
+                        <a class="btn btn-success text-white float-right" data-toggle="tooltip" data-placement="top" title="See Details" asp-action="ViewProductDetails" asp-route-id="@product.Id">
                             <i class="bi bi-eye-fill"></i>
                         </a>
                         <a class="btn btn-success text-white float-right" data-toggle="tooltip" data-placement="top" title="Add to Cart">

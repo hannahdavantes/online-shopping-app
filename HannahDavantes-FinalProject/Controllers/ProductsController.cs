@@ -22,5 +22,11 @@ namespace HannahDavantes_FinalProject.Controllers {
             var product = await _productsService.GetProductById(id);
             return View(product);
         }
+
+        public async Task<IActionResult> AddProduct() {
+
+            return View();
+        }
+        
     }
 }
