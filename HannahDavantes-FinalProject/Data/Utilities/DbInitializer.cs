@@ -273,8 +273,9 @@ namespace HannahDavantes_FinalProject.Data.Utilities {
                                         " The powerful SPF50+ PA++++ sunscreen blocks UV rays and protects the skin. ",
                             Photo = "default/0ba9bc08-89fb-495a-8636-023f293c40a8.jpg"
                         }
-
                     });
+                    // Save changes to database
+                    context.SaveChanges();
                 }
             }
         }

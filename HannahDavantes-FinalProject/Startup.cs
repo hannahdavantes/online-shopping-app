@@ -1,3 +1,4 @@
+using HannahDavantes_FinalProject.Data.Services;
 using HannahDavantes_FinalProject.Data.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +26,8 @@ namespace HannahDavantes_FinalProject {
             //DefaultConnectionString is found in appsettings.json 
             services.AddDbContext<DbContextUtility>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
 
+            //Add Services
+            services.AddScoped<IProductsService, ProductsService>(); 
 
 
             services.AddControllersWithViews();
@@ -51,6 +54,8 @@ namespace HannahDavantes_FinalProject {
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DbInitializer.LoadInitialData(app);
         }
     }
 }
