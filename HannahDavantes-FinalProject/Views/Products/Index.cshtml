@@ -20,10 +20,13 @@
                         <span class="badge badge-secondary mb-2">@product.Price.ToString("c")</span>
                     </div>
                     <div class="btn-group mt-auto" role="group" aria-label="Basic example">
-                        <a class="btn btn-success text-white float-right" data-toggle="tooltip" data-placement="top" title="Edit">
+                        <a class="btn btn-warning text-white float-right" data-toggle="tooltip" data-placement="top" title="Edit">
                             <i class="bi bi-pencil-fill"></i>
                         </a>
-                        <a class="btn btn-success text-white float-right" data-toggle="tooltip" data-placement="top" title="See Details" asp-action="ViewProductDetails" asp-route-id="@product.Id">
+                        <a class="btn btn-danger text-white float-right" data-toggle="tooltip" data-placement="top" title="Delete" asp-action="DeleteProduct" asp-route-id="@product.Id">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                        <a class="btn btn-primary text-white float-right" data-toggle="tooltip" data-placement="top" title="See Details" asp-action="ViewProductDetails" asp-route-id="@product.Id">
                             <i class="bi bi-eye-fill"></i>
                         </a>
                         <a class="btn btn-success text-white float-right" data-toggle="tooltip" data-placement="top" title="Add to Cart">

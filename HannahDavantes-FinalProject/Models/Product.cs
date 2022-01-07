@@ -14,12 +14,9 @@ namespace HannahDavantes_FinalProject.Models {
         public string Name { get; set; }
         public string Brand { get; set; }
         public ProductCategory Category { get; set; }
-        public int SizeNumber { get; set; }
+        public double SizeNumber { get; set; }
         public ProductSizeUnit SizeUnit { get; set; }
         public string Photo { get; set; }
-        
-        [NotMapped]
-        public IFormFile PhotoFile { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }
 

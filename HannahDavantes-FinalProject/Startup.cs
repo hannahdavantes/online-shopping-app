@@ -24,7 +24,7 @@ namespace HannahDavantes_FinalProject {
         public void ConfigureServices(IServiceCollection services) {
             //DBContext Configuration - translator between Models and Database
             //DefaultConnectionString is found in appsettings.json 
-            services.AddDbContext<DbContextUtility>(options => options.UseSqlServer(Configuration.GetConnectionString("SecondaryConnectionString")));
+            services.AddDbContext<DbContextUtility>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
 
             //Add Services
             services.AddScoped<IProductsService, ProductsService>(); 
