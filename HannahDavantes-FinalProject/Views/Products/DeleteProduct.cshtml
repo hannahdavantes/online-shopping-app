@@ -1,13 +1,21 @@
 ﻿@model Product
 
 @{
-    ViewData["Title"] = "Product Detail";
+    ViewData["Title"] = "Confirm Delete Product";
 }
-
+<div class="row my-1">
+    <div class="col-8 offset-2 text-center">
+        <h2>Confirm Delete Product</h2>
+    </div>
+</div>
 <div class="card  col-8 offset-2 shadow-lg">
     <div class="card-body row p-2">
         <div class="col col-6">
-            <img style="height:250px; width:120px; object-fit:cover;" src="~/img/@Model.Photo" alt="@Model.Name" />
+            @if (Model.Photo != null) {
+                <img style="height:250px; width:120px; object-fit:cover;" src="~/img/@Model.Photo" alt="@Model.Name" />
+            } else {
+                <img style="height:250px; width:120px; object-fit:cover;" src="~/img/default/default.jpg" alt="@Model.Name" />
+            }
         </div>
         <div class="col col-6 d-flex flex-column">
             <h5>@Model.Name - @Model.SizeNumber@Model.SizeUnit</h5>
@@ -18,16 +26,12 @@
             <div>
                 <p>@Model.Description</p>
             </div>
-            <div class="btn-group mt-auto" role="group" aria-label="Basic example">
-                <a class="btn btn-secondary text-white float-left" data-toggle="tooltip" data-placement="top" title="Add to Cart" asp-action="Index">
-                    <i class="bi bi-bag-plus"></i> Back to List
-                </a>
-                <a class="btn btn-success text-white float-right" data-toggle="tooltip" data-placement="top" title="Edit">
-                    <i class="bi bi-pencil-fill"></i> Edit
-                </a>
-                <a class="btn btn-success text-white float-right" data-toggle="tooltip" data-placement="top" title="Add to Cart">
-                    <i class="bi bi-bag-plus"></i> Add To Cart
-                </a>
+            <div class="form-group" role="group">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Delete" class="btn btn-danger float-right" />
+                </form>
+                <a class="btn btn-secondary" asp-action="Index"> Cancel </a>
             </div>
         </div>
     </div>

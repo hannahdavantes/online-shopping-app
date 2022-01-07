@@ -235,7 +235,7 @@ namespace HannahDavantes_FinalProject.Data.Utilities {
                             Description = "Despite any information provided by the seller, this product is not intended for the diagnosis, cure, mitigation, treatment or prevention of any disease. " +
                                         " Prevents the appearance of oily luster, controls the functioning of the sebaceous glands.Preserves and maintains the freshness of the skin tone. " +
                                         " Polysaccharides of aloe, which are distributed over the surface of the skin, create a moisturizing film. ",
-                            Photo = "default/37681805-d9be-4595-b1e6-e21152a9b4ca.jpg"
+                            Photo = "default/cc638294-a457-4da5-80da-ea40c7bfbe70.jpg"
                         },
                         new Product() {
                             Name = "Safe Block RX Cover Tone Up Sun SPF50+ PA++++",

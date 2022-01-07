@@ -1,5 +1,4 @@
 ﻿using HannahDavantes_FinalProject.Data.Services;
-using HannahDavantes_FinalProject.Data.ViewModel;
 using HannahDavantes_FinalProject.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -29,13 +28,13 @@ namespace HannahDavantes_FinalProject.Controllers {
             return View(product);
         }
 
-        public IActionResult AddProduct(Product product) {
+        public IActionResult AddProduct() {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct(NewProductViewModel newProduct) {
-            string fileName = "default/new.jpg";
+        public async Task<IActionResult> AddProduct(Product newProduct) {
+            string fileName = null;
             if (!ModelState.IsValid) {
                 return View(newProduct);
             }
@@ -48,26 +47,65 @@ namespace HannahDavantes_FinalProject.Controllers {
                 string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, photoFolder + fileName);
 
                 await newProduct.PhotoFile.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+                newProduct.Photo = "uploads/" + fileName;
             }
-            Product product = new Product() {
-                Name = newProduct.Name,
-                Brand = newProduct.Brand,
-                Category = newProduct.Category,
-                SizeNumber = newProduct.SizeNumber,
-                SizeUnit = newProduct.SizeUnit,
-                Photo = "uploads/" + fileName,
-                Description = newProduct.Description,
-                Price = newProduct.Price
-            };
 
-            await _productsService.AddProductAsync(product);
+            await _productsService.AddProductAsync(newProduct);
+            TempData["SuccessMessage"] = "New Product Added Succesfully";
 
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> DeleteProduct(int id) {
+            var product = await _productsService.GetProductById(id);
+            return View(product);
+        }
 
-            return View();
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteProductContinue(int id) {
+            var product = await _productsService.GetProductById(id);
+            if (product == null) {
+                return View("Invalid");
+            }
+
+            await _productsService.DeleteProductAsync(id);
+            TempData["ErrorMessage"] = "Product Deleted Succesfully";
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> EditProduct(int id) {
+            var product = await _productsService.GetProductById(id);
+            if (product == null) {
+                return View("Invalid");
+            }
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProduct(int id, [Bind("Id,Name,Brand,Category,SizeNumber,SizeUnit,PhotoFile,Description,Price,Photo")] Product product) {
+
+            string fileName = null;
+
+            if (!ModelState.IsValid) {
+                return View(product);
+            }
+
+            if (product.PhotoFile != null) {
+                string photoFolder = "img/uploads/";
+                string fileExtension = Path.GetExtension(product.PhotoFile.FileName);
+                fileName = Guid.NewGuid().ToString() + fileExtension;
+                string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, photoFolder + fileName);
+                product.Photo = "uploads/" + fileName;
+
+                await product.PhotoFile.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+            }
+
+            
+            await _productsService.UpdateProductAsync(id, product);
+            TempData["SuccessMessage"] = "Product Updated Succesfully";
+
+            return RedirectToAction(nameof(Index));
         }
 
     }
