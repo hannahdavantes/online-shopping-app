@@ -61,5 +61,7 @@ namespace HannahDavantes_FinalProject.Models {
         public double Price { get; set; }
 
         public string Photo { get; set; }
+
+
     }
 }
