@@ -41,14 +41,14 @@ namespace HannahDavantes_FinalProject.Models {
             //Check if it's already in the basket
             //If it is not in the basket then we add it to the list
             //If it is already in the basket, then we just increase the amount
-            var basketItem = _context.BasketItems.FirstOrDefault(n => n.Product.Id == product.Id && n.BasketId == BasketId);
+            var basketItem = _context.BasketProducts.FirstOrDefault(n => n.Product.Id == product.Id && n.BasketId == BasketId);
             if (basketItem == null) {
                 basketItem = new BasketProduct() {
                     BasketId = BasketId,
                     Product = product,
                     Quantity = 1
                 };
-                _context.BasketItems.Add(basketItem);
+                _context.BasketProducts.Add(basketItem);
             } else {
                 basketItem.Quantity++;
             }
@@ -60,19 +60,19 @@ namespace HannahDavantes_FinalProject.Models {
             //We check the quantity
             //If quantity is >1 then we just decrement the quantity
             //If quantity = 1 then we remove the item from basket
-            var basketItem = _context.BasketItems.FirstOrDefault(n => n.Product.Id == product.Id && n.BasketId == BasketId);
+            var basketItem = _context.BasketProducts.FirstOrDefault(n => n.Product.Id == product.Id && n.BasketId == BasketId);
             if (basketItem != null) {
                 if (basketItem.Quantity > 1) {
                     basketItem.Quantity--;
                 } else {
-                    _context.BasketItems.Remove(basketItem);
+                    _context.BasketProducts.Remove(basketItem);
                 }
             }
             _context.SaveChanges();
         }
 
         public List<BasketProduct> GetBasketProducts() {
-            BasketProducts = _context.BasketItems.Where(n => n.BasketId == BasketId).Include(n => n.Product).ToList();
+            BasketProducts = _context.BasketProducts.Where(n => n.BasketId == BasketId).Include(n => n.Product).ToList();
             if (BasketProducts != null) {
                 return BasketProducts;
             } else {
@@ -81,8 +81,14 @@ namespace HannahDavantes_FinalProject.Models {
         }
 
         public double GetBasketTotalPrice() {
-            var totalPrice = _context.BasketItems.Where(n => n.BasketId == BasketId).Select(n => n.Product.Price * n.Quantity).Sum();
+            var totalPrice = _context.BasketProducts.Where(n => n.BasketId == BasketId).Select(n => n.Product.Price * n.Quantity).Sum();
             return totalPrice;
+        }
+
+        public async Task ClearBasketAsync() {
+            var products = await _context.BasketProducts.Where(n => n.BasketId == BasketId).ToListAsync();
+            _context.BasketProducts.RemoveRange(products);
+            await _context.SaveChangesAsync();
         }
 
     }

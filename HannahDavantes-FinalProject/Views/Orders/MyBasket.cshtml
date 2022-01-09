@@ -1,11 +1,11 @@
 ﻿@model BasketViewModel
 
 @{
-    ViewData["Title"] = "Your Basket";
+    ViewData["Title"] = "My Basket";
 }
 <div class="row my-1">
     <div class="col-8 offset-2 text-center">
-        <h2>Your Basket</h2>
+        <h2>My Basket</h2>
     </div>
 </div>
 <div class="card col-12">
@@ -64,7 +64,7 @@
                             @Model.BasketTotalPrice.ToString("c")
                         </td>
                         <td>
-                            <a class="btn btn-success" asp-controller="Products" asp-action="Index">Checkout</a>
+                            <a class="btn btn-success" asp-action="Checkout">Checkout</a>
 
                         </td>
                     </tr>

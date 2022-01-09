@@ -21,7 +21,7 @@ namespace HannahDavantes_FinalProject.Data.Utilities {
 
 
                 //Uncomment to delete database then recreate and repopulate with data
-                context.Database.EnsureDeleted();
+                //context.Database.EnsureDeleted();
 
                 //Check if database exists, if not then the database will be created first
                 context.Database.EnsureCreated();

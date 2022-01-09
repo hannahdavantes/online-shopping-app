@@ -9,7 +9,7 @@ namespace HannahDavantes_FinalProject.Models {
         [Key]
         public int Id { get; set; }
         public string EmailAddress { get; set; }
-        public string LoggedInUserId { get; set; }
+        public string UserId { get; set; }
 
         //n:m relationsip
         public List<OrderProduct> OrderProducts { get; set; }

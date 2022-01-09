@@ -21,7 +21,7 @@ namespace HannahDavantes_FinalProject.Models {
 
 
         public int OrderId { get; set; }
-        [ForeignKey("ProductId")]
+        [ForeignKey("OrderId")]
         public Order Order { get; set; }
     }
 }

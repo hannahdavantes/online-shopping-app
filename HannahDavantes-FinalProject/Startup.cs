@@ -30,11 +30,12 @@ namespace HannahDavantes_FinalProject {
 
             //Add Services
             services.AddScoped<IProductsService, ProductsService>();
+            services.AddScoped<IOrdersService, OrdersService>();
 
             //Services for Adding to Basket
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(b => Basket.GetBasket(b));
-            services.AddSession(); 
+            services.AddSession();
 
             services.AddControllersWithViews();
         }

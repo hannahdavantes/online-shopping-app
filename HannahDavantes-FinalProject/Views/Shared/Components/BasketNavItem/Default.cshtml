@@ -1,0 +1,16 @@
+﻿@model int
+
+
+@if (Model > 0) {
+    <li class="nav-item text-dark ml-md-auto">
+        <a class="nav-link" asp-controller="Orders" asp-action="MyBasket">
+            <i class="bi bi-basket"></i> My Basket <span class="badge badge-secondary">@Model </span>
+        </a>
+    </li>
+} else {
+    <li class="nav-item text-dark ml-md-auto">
+        <a class="nav-link" asp-controller="Orders" asp-action="MyBasket">
+            <i class="bi bi-basket"></i> My Basket
+        </a>
+    </li>
+}

@@ -6,11 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace HannahDavantes_FinalProject.Data {
-    public class BasketComponent : ViewComponent {
+    public class BasketNavItem : ViewComponent {
 
         private readonly Basket _basket;
 
-        public BasketComponent(Basket basket) {
+        public BasketNavItem(Basket basket) {
             _basket = basket;
         }
 
