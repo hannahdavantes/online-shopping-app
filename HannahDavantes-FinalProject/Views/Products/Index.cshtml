@@ -52,7 +52,7 @@
                         <a class="btn btn-primary text-white float-right" data-toggle="tooltip" data-placement="top" title="See Details" asp-action="ViewProductDetails" asp-route-id="@product.Id">
                             <i class="bi bi-eye-fill"></i>
                         </a>
-                        <a class="btn btn-success text-white float-right" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                        <a class="btn btn-success text-white float-right" data-toggle="tooltip" data-placement="top" title="Add to Cart" asp-controller="Orders" asp-action="AddToBasket" asp-route-id="@product.Id">
                             <i class="bi bi-bag-plus"></i>
                         </a>
                     </div>

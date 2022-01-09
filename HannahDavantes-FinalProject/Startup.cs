@@ -1,7 +1,9 @@
 using HannahDavantes_FinalProject.Data.Services;
 using HannahDavantes_FinalProject.Data.Utilities;
+using HannahDavantes_FinalProject.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,8 +29,12 @@ namespace HannahDavantes_FinalProject {
             services.AddDbContext<DbContextUtility>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
 
             //Add Services
-            services.AddScoped<IProductsService, ProductsService>(); 
+            services.AddScoped<IProductsService, ProductsService>();
 
+            //Services for Adding to Basket
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(b => Basket.GetBasket(b));
+            services.AddSession(); 
 
             services.AddControllersWithViews();
         }
@@ -46,6 +52,10 @@ namespace HannahDavantes_FinalProject {
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            //Configuration for using Http Sessions
+            app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
 

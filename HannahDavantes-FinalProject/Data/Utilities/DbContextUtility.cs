@@ -18,5 +18,6 @@ namespace HannahDavantes_FinalProject.Data.Utilities {
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }
+        public DbSet<BasketProduct> BasketItems { get; set; }
     }
 }

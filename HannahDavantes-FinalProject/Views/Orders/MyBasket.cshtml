@@ -1,0 +1,75 @@
+﻿@model BasketViewModel
+
+@{
+    ViewData["Title"] = "Your Basket";
+}
+<div class="row my-1">
+    <div class="col-8 offset-2 text-center">
+        <h2>Your Basket</h2>
+    </div>
+</div>
+<div class="card col-12">
+    <div class="card-body d-flex flex-column align-items-center justify-content-center" style="min-height: 50vh">
+        @if (Model.Basket.BasketProducts.Count < 1) {
+            <h3>You have no items in your basket</h3>
+            <a class="btn btn-outline-secondary" asp-controller="Products" asp-action="Index">Add Products</a>
+        } else {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Basket.BasketProducts) {
+                        <tr>
+                            <th>
+                                <img class="rounded-circle" style="width: 150px; object-fit:cover; " src="~/img/@product.Product.Photo" alt="@product.Product.Name" />
+                            </th>
+                            <td>
+                                <b>@product.Product.Name</b> <br />
+                                @product.Product.Brand
+                            </td>
+                            <td>
+                                @product.Product.Price.ToString("c")
+                            </td>
+                            <td class="d-flex-inline">
+                                <a class="text-danger" asp-controller="Orders" asp-action="RemoveFromBasket" asp-route-id="@product.Product.Id">
+                                    <i class="bi bi-dash-circle-fill"></i>
+                                </a>
+                                @product.Quantity
+                                <a class="text-success" asp-controller="Orders" asp-action="AddToBasket" asp-route-id="@product.Product.Id">
+                                    <i class="bi bi-plus-circle-fill"></i>
+                                </a>
+                            </td>
+                            <td>
+                                @((product.Quantity* product.Product.Price).ToString("c"))
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>
+                            <a class="btn btn-outline-secondary" asp-controller="Products" asp-action="Index">Add More Products</a>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <b>Basket Total:</b>
+                        </td>
+                        <td>
+                            @Model.BasketTotalPrice.ToString("c")
+                        </td>
+                        <td>
+                            <a class="btn btn-success" asp-controller="Products" asp-action="Index">Checkout</a>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
