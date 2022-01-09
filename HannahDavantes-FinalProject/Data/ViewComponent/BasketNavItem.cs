@@ -17,6 +17,10 @@ namespace HannahDavantes_FinalProject.Data {
             _basket = basket;
         }
 
+        /// <summary>
+        /// This gets the Basket ViewComponent which controls the quantity displayed on the basket
+        /// </summary>
+        /// <returns></returns>
         public IViewComponentResult Invoke() {
             var products = _basket.GetBasketProducts();
             var numberOfProducts = products.Sum(n => n.Quantity);

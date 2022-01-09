@@ -33,6 +33,13 @@ namespace HannahDavantes_FinalProject.Data.Services {
             return orders;
         }
 
+        /// <summary>
+        /// This method will  add the order to the database
+        /// </summary>
+        /// <param name="products"></param>
+        /// <param name="userId"></param>
+        /// <param name="userEmailAddress"></param>
+        /// <returns></returns>
         public async Task StoreOrderAsync(List<BasketProduct> products, string userId, string userEmailAddress) {
             var order = new Order() {
                 UserId = userId,

@@ -10,6 +10,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace HannahDavantes_FinalProject.Data.Utilities {
+    /// <summary>
+    /// This class is used to load initial product and users data to the database
+    /// </summary>
     public class DbInitializer {
 
 
@@ -308,7 +311,7 @@ namespace HannahDavantes_FinalProject.Data.Utilities {
 
                 //Check if an admin & the user already exists, if not then they get created
                 //ADMIN
-                var adminEmailAddress = "admin@skincarestore.com";
+                var adminEmailAddress = "admin@skincareshop.com";
                 var adminUser = await userManager.FindByEmailAsync(adminEmailAddress);
                 if (adminUser == null) {
                     var newAdminUser = new User() {

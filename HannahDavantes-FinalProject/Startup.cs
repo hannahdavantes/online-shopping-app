@@ -77,6 +77,9 @@ namespace HannahDavantes_FinalProject {
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
+            //Uses DbInitializer to check if database exists
+            //If not then it loads product and user details
+            //If it exists then it will just use the existing database
             DbInitializer.LoadInitialData(app);
             DbInitializer.LoadUsersAndRolesAsync(app).Wait();
         }
