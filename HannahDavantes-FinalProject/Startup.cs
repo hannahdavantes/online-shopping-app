@@ -1,10 +1,12 @@
 using HannahDavantes_FinalProject.Data.Services;
 using HannahDavantes_FinalProject.Data.Utilities;
 using HannahDavantes_FinalProject.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,7 +37,26 @@ namespace HannahDavantes_FinalProject {
             //Services for Adding to Basket
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(b => Basket.GetBasket(b));
+
+            //Services for Authentication and Authorization
+            //Identity requires that passwords contain an uppercase character, lowercase character, a digit, and a non-alphanumeric character.
+            //Passwords must be at least six characters long.
+            //I changed the password rules to be able to save simple passwords
+            /*            services.AddIdentity<User, IdentityRole>(options => {
+                            options.Password.RequireDigit = false;
+                            options.Password.RequireLowercase = false;
+                            options.Password.RequireNonAlphanumeric = false;
+                            options.Password.RequireUppercase = false;
+                            options.Password.RequiredLength = 6;
+                            options.Password.RequiredUniqueChars = 0;
+                        }).AddEntityFrameworkStores<DbContextUtility>();*/
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DbContextUtility>().AddDefaultTokenProviders(); ;
+            services.AddMemoryCache();
             services.AddSession();
+            services.AddAuthentication(options => {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });
+
 
             services.AddControllersWithViews();
         }
@@ -52,13 +73,14 @@ namespace HannahDavantes_FinalProject {
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
-
             //Configuration for using Http Sessions
             app.UseRouting();
             app.UseSession();
 
+            //Configuration for Authentication and Authorization
+            app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(
@@ -67,6 +89,7 @@ namespace HannahDavantes_FinalProject {
             });
 
             DbInitializer.LoadInitialData(app);
+            DbInitializer.LoadUsersAndRolesAsync(app).Wait();
         }
     }
 }

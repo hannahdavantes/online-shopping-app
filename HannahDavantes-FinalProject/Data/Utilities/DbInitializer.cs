@@ -1,14 +1,18 @@
 ﻿using HannahDavantes_FinalProject.Data.Enums;
 using HannahDavantes_FinalProject.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace HannahDavantes_FinalProject.Data.Utilities {
     public class DbInitializer {
+
+
         /// <summary>
         /// This method is used to add data into the database.
         /// </summary>
@@ -21,7 +25,7 @@ namespace HannahDavantes_FinalProject.Data.Utilities {
 
 
                 //Uncomment to delete database then recreate and repopulate with data
-                //context.Database.EnsureDeleted();
+                context.Database.EnsureDeleted();
 
                 //Check if database exists, if not then the database will be created first
                 context.Database.EnsureCreated();
@@ -276,6 +280,74 @@ namespace HannahDavantes_FinalProject.Data.Utilities {
                     });
                     // Save changes to database
                     context.SaveChanges();
+                }
+            }
+        }
+
+        public static async Task LoadUsersAndRolesAsync(IApplicationBuilder applicationBuilder) {
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope()) {
+
+
+                //The RoleManager and UserManager is from ASP.NET CORE Identity which helps with managing users and their roles in the database
+                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<User>>();
+
+                //Check if there is an ADMIN role in the database, if not then it gets created
+                if (!await roleManager.RoleExistsAsync(Roles.ADMIN)) {
+                    await roleManager.CreateAsync(new IdentityRole(Roles.ADMIN));
+                }
+
+                //Check if there is an USER role in the database, if not then it gets created
+                if (!await roleManager.RoleExistsAsync(Roles.USER)) {
+                    await roleManager.CreateAsync(new IdentityRole(Roles.USER));
+                }
+
+                //Check if an admin & the user already exists, if not then they get created
+                //ADMIN
+                var adminEmailAddress = "admin@skincarestore.com";
+                var adminUser = await userManager.FindByEmailAsync(adminEmailAddress);
+                if (adminUser == null) {
+                    var newAdminUser = new User() {
+                        FirstName = "Admin",
+                        LastName = "Admin",
+                        UserName = "Admin",
+                        Email = adminEmailAddress,
+                        EmailConfirmed = true,
+                        StreetAddress = "4129 Citadel Blvd NW",
+                        City = "Calgary",
+                        Province = "Alberta",
+                        PostalCode = "T4E 1O3",
+                        PhoneNumber = "587-234-9090"
+                    };
+                    var result = await userManager.CreateAsync(newAdminUser, "Passw0rd!@#$");
+                    if (result.Succeeded) {
+                        await userManager.AddToRoleAsync(newAdminUser, Roles.ADMIN);
+                    } else {
+                        Debug.WriteLine(result.Errors);
+                    }
+                }
+                //USER
+                string userEmailAddress = "johndoe@skincareshop.com";
+                var appUser = await userManager.FindByEmailAsync(userEmailAddress);
+                if (appUser == null) {
+                    var newAppUser = new User() {
+                        FirstName = "John",
+                        LastName = "Doe",
+                        UserName = "JohnDoe",
+                        Email = userEmailAddress,
+                        EmailConfirmed = true,
+                        StreetAddress = "6789 Tuscany Estates NW",
+                        City = "Calgary",
+                        Province = "Alberta",
+                        PostalCode = "T8G 1B3",
+                        PhoneNumber = "403-190-2378"
+                    };
+                    var result = await userManager.CreateAsync(newAppUser, "Passw0rd!@#$");
+                    if (result.Succeeded) {
+                        await userManager.AddToRoleAsync(newAppUser, Roles.USER);
+                    } else {
+                        Debug.WriteLine(result.Errors);
+                    }
                 }
             }
         }

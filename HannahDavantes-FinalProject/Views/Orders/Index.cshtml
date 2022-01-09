@@ -34,8 +34,8 @@
                                 <div class="d-flex flex-column alert alert-secondary">
                                     @foreach (var product in order.OrderProducts) {
                                         <div class="d-flex">
-                                            <span class="badge badge-secondary mr-1 ">@product.Quantity</span>
-                                            <span class="badge badge-success">@product.Price.ToString("c")</span>
+                                            <span class="badge badge-secondary mr-1 ">Quantity: @product.Quantity</span>
+                                            <span class="badge badge-success">Unit Price: @product.Price.ToString("c")</span>
                                         </div>
                                         <p>@product.Product.Name</p>
 
