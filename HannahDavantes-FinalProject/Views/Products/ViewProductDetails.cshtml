@@ -30,13 +30,15 @@
                 <a class="btn btn-secondary text-white float-left" asp-action="Index">
                     <i class="bi bi-bag-plus"></i> Back to List
                 </a>
-                <a class="btn btn-primary text-white float-right" asp-action="EditProduct" asp-route-id="@Model.Id">
-                    <i class="bi bi-pencil-fill"></i> Edit
-                </a>
-                <a class="btn btn-success text-white float-right"  asp-controller="Orders" asp-action="AddToBasket" asp-route-id="@Model.Id">
-                    <i class="bi bi-bag-plus"></i> Add To Cart
-                </a>
-            </div>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin")) {
+                    <a class="btn btn-primary text-white float-right" asp-action="EditProduct" asp-route-id="@Model.Id">
+                        <i class="bi bi-pencil-fill"></i> Edit
+                    </a>
+                }
+                    <a class="btn btn-success text-white float-right" asp-controller="Orders" asp-action="AddToBasket" asp-route-id="@Model.Id">
+                        <i class="bi bi-bag-plus"></i> Add To Cart
+                    </a>
+                </div>
         </div>
     </div>
 </div>

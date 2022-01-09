@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace HannahDavantes_FinalProject.Data.Services {
     public interface IOrdersService {
         Task StoreOrderAsync(List<BasketProduct> products, string userId, string userEmailAddress);
-        Task<List<Order>> GetOrdersByUserIdAsync(string userId);
+        Task<List<Order>> GetOrdersByUserIdAndRoleAsync(string userId, string userRole);
     }
 }

@@ -14,7 +14,7 @@ namespace HannahDavantes_FinalProject.Data.Utilities {
 
 
         /// <summary>
-        /// This method is used to add data into the database.
+        /// This method is used to add product data into the database
         /// </summary>
         /// <param name="applicationBuilder"></param>
         public static void LoadInitialData(IApplicationBuilder applicationBuilder) {
@@ -23,9 +23,8 @@ namespace HannahDavantes_FinalProject.Data.Utilities {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope()) {
                 var context = serviceScope.ServiceProvider.GetService<DbContextUtility>();
 
-
                 //Uncomment to delete database then recreate and repopulate with data
-                context.Database.EnsureDeleted();
+                //context.Database.EnsureDeleted();
 
                 //Check if database exists, if not then the database will be created first
                 context.Database.EnsureCreated();
@@ -284,6 +283,11 @@ namespace HannahDavantes_FinalProject.Data.Utilities {
             }
         }
 
+        /// <summary>
+        /// This method is used to create an admin and user and save it into the database
+        /// </summary>
+        /// <param name="applicationBuilder"></param>
+        /// <returns></returns>
         public static async Task LoadUsersAndRolesAsync(IApplicationBuilder applicationBuilder) {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope()) {
 
@@ -319,7 +323,7 @@ namespace HannahDavantes_FinalProject.Data.Utilities {
                         PostalCode = "T4E 1O3",
                         PhoneNumber = "587-234-9090"
                     };
-                    var result = await userManager.CreateAsync(newAdminUser, "Passw0rd!@#$");
+                    var result = await userManager.CreateAsync(newAdminUser, "P@ssw0rd");
                     if (result.Succeeded) {
                         await userManager.AddToRoleAsync(newAdminUser, Roles.ADMIN);
                     } else {
@@ -333,7 +337,7 @@ namespace HannahDavantes_FinalProject.Data.Utilities {
                     var newAppUser = new User() {
                         FirstName = "John",
                         LastName = "Doe",
-                        UserName = "JohnDoe",
+                        UserName = "John",
                         Email = userEmailAddress,
                         EmailConfirmed = true,
                         StreetAddress = "6789 Tuscany Estates NW",
@@ -342,7 +346,7 @@ namespace HannahDavantes_FinalProject.Data.Utilities {
                         PostalCode = "T8G 1B3",
                         PhoneNumber = "403-190-2378"
                     };
-                    var result = await userManager.CreateAsync(newAppUser, "Passw0rd!@#$");
+                    var result = await userManager.CreateAsync(newAppUser, "P@ssw0rd");
                     if (result.Succeeded) {
                         await userManager.AddToRoleAsync(newAppUser, Roles.USER);
                     } else {

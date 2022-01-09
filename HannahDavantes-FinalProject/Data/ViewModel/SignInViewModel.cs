@@ -5,6 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace HannahDavantes_FinalProject.Data.ViewModel {
+
+    /// <summary>
+    /// This class is used to hold data which is need to sign in to the application
+    /// </summary>
     public class SignInViewModel {
         [Display(Name = "Email Address")]
         [Required(ErrorMessage = "Email Address is Required")]

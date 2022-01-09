@@ -21,10 +21,11 @@
     </div>
 }
 
-
-<div class="row my-1">
-    <a class="btn btn-block btn-lg btn-outline-success" asp-action="AddProduct"><i class="bi bi-plus-circle"></i> Add a New Product</a>
-</div>
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin")) {
+    <div class="row my-1">
+        <a class="btn btn-block btn-lg btn-outline-success" asp-action="AddProduct"><i class="bi bi-plus-circle"></i> Add a New Product</a>
+    </div>
+}
 <div class="row my-1">
     @foreach (var product in Model) {
         <div class="card col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 shadow-lg">
@@ -43,12 +44,14 @@
                         <span class="badge badge-secondary mb-2">@product.Price.ToString("c")</span>
                     </div>
                     <div class="btn-group mt-auto" role="group" aria-label="Basic example">
-                        <a class="btn btn-warning text-white float-right" data-toggle="tooltip" data-placement="top" title="Edit"  asp-action="EditProduct" asp-route-id="@product.Id">
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
-                        <a class="btn btn-danger text-white float-right" data-toggle="tooltip" data-placement="top" title="Delete" asp-action="DeleteProduct" asp-route-id="@product.Id">
-                            <i class="bi bi-trash"></i>
-                        </a>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin")) {
+                            <a class="btn btn-warning text-white float-right" data-toggle="tooltip" data-placement="top" title="Edit" asp-action="EditProduct" asp-route-id="@product.Id">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                            <a class="btn btn-danger text-white float-right" data-toggle="tooltip" data-placement="top" title="Delete" asp-action="DeleteProduct" asp-route-id="@product.Id">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        }
                         <a class="btn btn-primary text-white float-right" data-toggle="tooltip" data-placement="top" title="See Details" asp-action="ViewProductDetails" asp-route-id="@product.Id">
                             <i class="bi bi-eye-fill"></i>
                         </a>

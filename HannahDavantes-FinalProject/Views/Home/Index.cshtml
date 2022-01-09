@@ -1,69 +1,44 @@
 ﻿@{
     ViewData["Title"] = "Home";
 }
-<div id="carouselExampleIndicators" class="carousel slide bg-light" style="min-height: 70vh;" data-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide bg-light p-5 my-2" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner p-4">
-        <div class="carousel-item active">
-            <div class="container w-75">
-                <div class="row">
-                    <h1 class="display-4">Free Shipping!</h1>
-                </div>
+        <div class="carousel-item active ">
+            <div class="d-flex flex-column align-items-center justify-content-between">
+                <h1 class="display-4">Free Shipping!</h1>
                 <hr class="my-4">
-                <div class="row">
-                    <p class="lead">Free shipping on orders $50+</p>
-                </div>
-                <div class="row">
-                    <p class="lead">
-                        <a class="btn btn-primary btn-lg" asp-controller="Products" asp-action="Index">Shop Now!</a>
-                    </p>
-                </div>
+                <p class="lead">Free shipping on orders $50+</p>
+                <a class="btn btn-success btn-lg" asp-controller="Products" asp-action="Index">Shop Now!</a>
             </div>
         </div>
         <div class="carousel-item">
-            <div class="container w-75">
-                <div class="row">
-                    <h1 class="display-4">10% off on orders $100+</h1>
-                </div>
+            <div class="d-flex flex-column align-items-center justify-content-between">
+                <h1 class="display-4">10% off on orders $100+</h1>
                 <hr class="my-4">
-                <div class="row">
-                    <p class="lead">10% off on orders $100+</p>
-                </div>
-                <div class="row">
-                    <p class="lead">
-                        <a class="btn btn-primary btn-lg" asp-controller="Products" asp-action="Index">Shop Now!</a>
-                    </p>
-                </div>
+                <p class="lead">10% off on orders $100+</p>
+                <a class="btn btn-primary btn-lg" asp-controller="Products" asp-action="Index">Shop Now!</a>
             </div>
-
         </div>
         <div class="carousel-item">
-            <div class="container w-75">
-                <div class="row">
-                    <h1 class="display-4">Free Samples!</h1>
-                </div>
+            <div class="d-flex flex-column text-center align-items-center justify-content-between">
+                <h1 class="display-4">Free Samples!</h1>
                 <hr class="my-4">
-                <div class="row">
-                    <p class="lead">Free samples on all orders!</p>
-                </div>
-                <div class="row">
-                    <p class="lead">
-                        <a class="btn btn-primary btn-lg" asp-controller="Products" asp-action="Index">Shop Now!</a>
-                    </p>
-                </div>
+                <p class="lead">Free samples on all orders!</p>
+                <a class="btn btn-warning btn-lg" asp-controller="Products" asp-action="Index">Shop Now!</a>
             </div>
         </div>
     </div>
 </div>
 
 @section scripts{
-<script type="text/javascript">
-    $('.carousel').carousel({
-        interval: 3000
-    })
-</script>
+    <script type="text/javascript">
+        $('.carousel').carousel({
+            interval: 3000
+        })
+    </script>
 }

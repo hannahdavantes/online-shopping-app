@@ -5,6 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace HannahDavantes_FinalProject.Models {
+
+    /// <summary>
+    /// This class represents the data in the BasketProduct table which is the bridging table between products and orders
+    /// </summary>
     public class BasketProduct {
         [Key]
         public int Id { get; set; }

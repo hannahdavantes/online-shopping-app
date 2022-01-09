@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+/// <summary>
+/// This class represents a ViewComponent which counts the number of products in the basket and display it beside the basket icon
+/// </summary>
 namespace HannahDavantes_FinalProject.Data {
     public class BasketNavItem : ViewComponent {
 

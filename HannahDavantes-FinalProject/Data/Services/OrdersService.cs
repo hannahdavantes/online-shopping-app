@@ -11,12 +11,25 @@ namespace HannahDavantes_FinalProject.Data.Services {
 
         private readonly DbContextUtility _context;
 
+        /// <summary>
+        /// This constructor injects the DbContext
+        /// </summary>
+        /// <param name="context"></param>
         public OrdersService(DbContextUtility context) {
             _context = context;
         }
 
-        public async Task<List<Order>> GetOrdersByUserIdAsync(string userId) {
-            var orders = await _context.Orders.Include(n => n.OrderProducts).ThenInclude(n => n.Product).Where(n => n.UserId == userId).ToListAsync();
+        /// <summary>
+        /// This method will get the list of orders that the user has made
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="userRole"></param>
+        /// <returns></returns>
+        public async Task<List<Order>> GetOrdersByUserIdAndRoleAsync(string userId, string userRole) {
+            var orders = await _context.Orders.Include(n => n.OrderProducts).ThenInclude(n => n.Product).Include(n => n.User).ToListAsync();
+            if(userRole != Roles.ADMIN) {
+                orders = orders.Where(n => n.UserId == userId).ToList();
+            }
             return orders;
         }
 

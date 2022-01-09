@@ -39,17 +39,6 @@ namespace HannahDavantes_FinalProject {
             services.AddScoped(b => Basket.GetBasket(b));
 
             //Services for Authentication and Authorization
-            //Identity requires that passwords contain an uppercase character, lowercase character, a digit, and a non-alphanumeric character.
-            //Passwords must be at least six characters long.
-            //I changed the password rules to be able to save simple passwords
-            /*            services.AddIdentity<User, IdentityRole>(options => {
-                            options.Password.RequireDigit = false;
-                            options.Password.RequireLowercase = false;
-                            options.Password.RequireNonAlphanumeric = false;
-                            options.Password.RequireUppercase = false;
-                            options.Password.RequiredLength = 6;
-                            options.Password.RequiredUniqueChars = 0;
-                        }).AddEntityFrameworkStores<DbContextUtility>();*/
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DbContextUtility>().AddDefaultTokenProviders(); ;
             services.AddMemoryCache();
             services.AddSession();
